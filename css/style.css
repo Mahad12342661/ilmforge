@@ -1,7 +1,267 @@
-body{
-    background-color: black;
+
+/* GENERAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
-section{
+
+body {
+    background-color: #0B0D0A;
+    color: #FFFFFF;
+}
+
+/* NAVBAR */
+header {
+    background-color: #11150F;
+    border-bottom: 1px solid #293322;
+    padding: 20px 7%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h2 {
+    color: #76B900;
+    font-size: 25px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #76B900;
+}
+
+/* GENERAL SECTION STYLING */
+section {
+    padding: 100px 10%;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+section h1,
+section h2,
+section h3 {
+    margin-bottom: 20px;
+}
+
+section p {
+    color: #A1A1AA;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    max-width: 750px;
+}
+
+/* HOME SECTION */
+#home {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: radial-gradient(
+        ellipse at 80% 50%,
+        #1b2b0c 0%,
+        #0B0D0A 65%
+    );
+}
+
+#home h1 {
+    font-size: clamp(45px, 7vw, 85px);
+    color: #FFFFFF;
+}
+
+#home h2 {
+    font-size: clamp(25px, 4vw, 45px);
+    color: #76B900;
+}
+
+#home p:first-child {
+    color: #76B900;
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
+#home a {
+    display: inline-block;
     background-color: #76B900;
-    border-radius: 4px;
+    color: #0B0D0A;
+    padding: 15px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#home a:hover {
+    background-color: #A3E635;
+    transform: translateY(-3px);
+}
+
+/* LABORATORY */
+#laboratory {
+    background-color: #11150F;
+}
+
+#laboratory h2,
+#pipeline h2,
+#about h2 {
+    font-size: 35px;
+    color: #76B900;
+}
+
+#rendering-area {
+    margin: 35px 0;
+    background-color: #080A07;
+    border: 1px solid #293322;
+    border-radius: 12px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+#gpuCanvas {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    margin: auto;
+}
+
+/* CONTROL PANELS */
+#object-controls,
+#lighting-controls,
+#depth-controls {
+    background-color: #171D15;
+    border: 1px solid #293322;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+#object-controls h3,
+#lighting-controls h3,
+#depth-controls h3 {
+    color: #76B900;
+}
+
+label {
+    display: block;
+    margin: 15px 0 8px;
+    color: #D4D4D8;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #76B900;
+}
+
+input[type="checkbox"] {
+    accent-color: #76B900;
+}
+
+button {
+    background-color: #76B900;
+    color: #0B0D0A;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #A3E635;
+    transform: translateY(-2px);
+}
+
+/* GPU PIPELINE */
+#pipeline {
+    background-color: #0B0D0A;
+}
+
+.pipeline-stage {
+    background-color: #171D15;
+    border: 1px solid #293322;
+    border-left: 4px solid #76B900;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 20px 0;
+    transition: 0.3s;
+}
+
+.pipeline-stage:hover {
+    border-color: #76B900;
+    transform: translateX(5px);
+}
+
+.pipeline-stage h3 {
+    color: #FFFFFF;
+}
+
+/* ABOUT */
+#about {
+    background-color: #11150F;
+}
+
+/* FOOTER */
+footer {
+    background-color: #080A07;
+    border-top: 1px solid #293322;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+footer h3 {
+    color: #76B900;
+    margin-bottom: 15px;
+}
+
+footer p {
+    color: #A1A1AA;
+    margin: 8px 0;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 700px) {
+    header {
+        padding: 18px 5%;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    section {
+        padding: 65px 6%;
+    }
+
+    #rendering-area {
+        padding: 8px;
+    }
 }
