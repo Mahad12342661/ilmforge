@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inside a GPU | From 3D to Pixels</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h2>GPU LAB</h2>
+            </div>
+
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#laboratory">Laboratory</a></li>
+                <li><a href="#pipeline">GPU Pipeline</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <main>
+
+        <section id="home">
+
+            <p>INTERACTIVE GPU EXPLORATION</p>
+
+            <h1>Inside a GPU</h1>
+
+            <h2>From 3D to Pixels</h2>
+
+            <p>
+                Ever wondered how your computer transforms
+                3D objects into the images you see on your screen?
+                Explore the hidden process behind computer graphics.
+            </p>
+
+            <a href="#laboratory">Explore the Laboratory</a>
+
+        </section>
+
+
+        <!-- GPU LABORATORY -->
+        <section id="laboratory">
+
+            <h2>Interactive GPU Laboratory</h2>
+
+            <p>
+                Experiment with a 3D object and discover how
+                a GPU processes and renders graphics.
+            </p>
+
+            <!-- 3D RENDERING AREA -->
+            <div id="rendering-area">
+
+                <canvas id="gpuCanvas" width="800" height="500">
+                    Your browser does not support canvas.
+                </canvas>
+
+            </div>
+
+
+            <!-- OBJECT CONTROLS -->
+            <div id="object-controls">
+
+                <h3>Object Controls</h3>
+
+                <label for="positionX">Position X</label>
+                <input type="range" id="positionX"
+                    min="-5" max="5" value="0" step="0.1">
+
+                <label for="positionY">Position Y</label>
+                <input type="range" id="positionY"
+                    min="-5" max="5" value="0" step="0.1">
+
+                <label for="positionZ">Position Z</label>
+                <input type="range" id="positionZ"
+                    min="-10" max="10" value="0" step="0.1">
+
+                <button id="resetObject">Reset Position</button>
+
+            </div>
+
+
+            <!-- LIGHTING CONTROLS -->
+            <div id="lighting-controls">
+
+                <h3>Lighting Controls</h3>
+
+                <label for="lightIntensity">Light Intensity</label>
+                <input type="range" id="lightIntensity"
+                    min="0" max="100" value="50">
+
+                <label for="lightDirection">Light Direction</label>
+                <input type="range" id="lightDirection"
+                    min="0" max="360" value="45">
+
+            </div>
+
+
+            <!-- DEPTH TESTING -->
+            <div id="depth-controls">
+
+                <h3>Depth Testing</h3>
+
+                <p>
+                    Experiment with how the GPU determines
+                    which objects appear in front of others.
+                </p>
+
+                <label>
+                    <input type="checkbox" id="depthTest" checked>
+                    Enable Depth Testing
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- GPU PIPELINE -->
+        <section id="pipeline">
+
+            <h2>The GPU Rendering Pipeline</h2>
+
+            <p>
+                Follow the journey of a 3D object as it becomes
+                the pixels displayed on your screen.
+            </p>
+
+
+            <div class="pipeline-stage" id="vertex-processing">
+
+                <h3>01. Vertex Processing</h3>
+
+                <p>
+                    The GPU processes the coordinates of individual
+                    vertices and transforms them into screen space.
+                </p>
+
+                <button class="stage-button" data-stage="vertex">
+                    Explore Stage
+                </button>
+
+            </div>
+
+
+            <div class="pipeline-stage" id="triangle-processing">
+
+                <h3>02. Triangle Processing</h3>
+
+                <p>
+                    Vertices are assembled into triangles that
+                    form the surfaces of 3D objects.
+                </p>
+
+                <button class="stage-button" data-stage="triangle">
+                    Explore Stage
+                </button>
+
+            </div>
+
+
+            <div class="pipeline-stage" id="rasterization">
+
+                <h3>03. Rasterization</h3>
+
+                <p>
+                    The GPU determines which screen pixels
+                    are covered by each triangle.
+                </p>
+
+                <button class="stage-button" data-stage="rasterization">
+                    Explore Stage
+                </button>
+
+            </div>
+
+
+            <div class="pipeline-stage" id="fragment-processing">
+
+                <h3>04. Fragment Processing</h3>
+
+                <p>
+                    The GPU calculates the colours and other
+                    properties of fragments using shaders.
+                </p>
+
+                <button class="stage-button" data-stage="fragment">
+                    Explore Stage
+                </button>
+
+            </div>
+
+
+            <div class="pipeline-stage" id="framebuffer">
+
+                <h3>05. Framebuffer Operations</h3>
+
+                <p>
+                    The final pixel values are stored in the
+                    framebuffer and displayed on your screen.
+                </p>
+
+                <button class="stage-button" data-stage="framebuffer">
+                    Explore Stage
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- LEARNING SECTION -->
+        <section id="about">
+
+            <h2>Why Does This Matter?</h2>
+
+            <p>
+                GPUs are responsible for rendering the graphics
+                we see in video games, animations, simulations
+                and many other applications.
+            </p>
+
+            <p>
+                Understanding the rendering pipeline helps reveal
+                how complex 3D scenes become the 2D images
+                displayed on our screens.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h3>GPU LAB</h3>
+
+        <p>Inside a GPU — From 3D to Pixels</p>
+
+        <p>Created for the Global Virtual Hackathon 2026.</p>
+
+    </footer>
+
+</body>
+</html>
