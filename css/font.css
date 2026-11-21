@@ -1,13 +1,10 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700&display=swap');
 
 body {
     font-family: 'Inter', sans-serif;
 }
 
-h1,
-h2,
-h3,
-.logo {
+h1, h2, h3, .logo {
     font-family: 'Orbitron', sans-serif;
 }
