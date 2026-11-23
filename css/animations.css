@@ -1,0 +1,5 @@
+/* ===== Animations =====
+   Kept to a minimum on purpose. Motion is only used where it explains something:
+   - fade-in: labels on the channel and learning-step changes
+   - the ciphertext "scramble" is done in JavaScript (ui.js) */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }

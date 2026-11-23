@@ -1,261 +1,213 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Inside a GPU | From 3D to Pixels</title>
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/font.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Everything runs locally. This policy forbids any network request, so a message can never leave the page. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="Behind the Message: an interactive demo of real ECDH + HKDF + AES-256-GCM encryption using the browser's Web Crypto API.">
+  <title>Behind the Message: How Encryption Works</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a1030'/%3E%3Cpath d='M10 14v-3a6 6 0 0 1 12 0v3h1v10H9V14zm3 0h6v-3a3 3 0 0 0-6 0z' fill='%2339a0ff'/%3E%3C/svg%3E">
+  <!-- Styles (frontend look): load order matters -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <!-- Scripts: crypto engine (processing) -> UI (display) -> app (connects the two) -->
+  <script src="js/crypto-engine.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/learn.js" defer></script>
+  <script src="js/script.js" defer></script>
 </head>
-
 <body>
-
-    <!-- NAVBAR -->
-    <header>
-        <nav>
-            <div class="logo">
-                <h2>GPU LAB</h2>
-            </div>
-
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#laboratory">Laboratory</a></li>
-                <li><a href="#pipeline">GPU Pipeline</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </nav>
-    </header>
-
-
-    <!-- HERO SECTION -->
-    <main>
-
-        <section id="home">
-
-            <p>INTERACTIVE GPU EXPLORATION</p>
-
-            <h1>Inside a GPU</h1>
-
-            <h2>From 3D to Pixels</h2>
-
-            <p>
-                Ever wondered how your computer transforms
-                3D objects into the images you see on your screen?
-                Explore the hidden process behind computer graphics.
-            </p>
-
-            <a href="#laboratory">Explore the Laboratory</a>
-
-        </section>
-
-
-        <!-- GPU LABORATORY -->
-        <section id="laboratory">
-
-            <h2>Interactive GPU Laboratory</h2>
-
-            <p>
-                Experiment with a 3D object and discover how
-                a GPU processes and renders graphics.
-            </p>
-
-            <!-- 3D RENDERING AREA -->
-            <div id="rendering-area">
-
-                <canvas id="gpuCanvas" width="800" height="500">
-                    Your browser does not support canvas.
-                </canvas>
-
-            </div>
-
-
-            <!-- OBJECT CONTROLS -->
-            <div id="object-controls">
-
-                <h3>Object Controls</h3>
-
-                <label for="positionX">Position X</label>
-                <input type="range" id="positionX"
-                    min="-5" max="5" value="0" step="0.1">
-
-                <label for="positionY">Position Y</label>
-                <input type="range" id="positionY"
-                    min="-5" max="5" value="0" step="0.1">
-
-                <label for="positionZ">Position Z</label>
-                <input type="range" id="positionZ"
-                    min="-10" max="10" value="0" step="0.1">
-
-                <button id="resetObject">Reset Position</button>
-
-            </div>
-
-
-            <!-- LIGHTING CONTROLS -->
-            <div id="lighting-controls">
-
-                <h3>Lighting Controls</h3>
-
-                <label for="lightIntensity">Light Intensity</label>
-                <input type="range" id="lightIntensity"
-                    min="0" max="100" value="50">
-
-                <label for="lightDirection">Light Direction</label>
-                <input type="range" id="lightDirection"
-                    min="0" max="360" value="45">
-
-            </div>
-
-
-            <!-- DEPTH TESTING -->
-            <div id="depth-controls">
-
-                <h3>Depth Testing</h3>
-
-                <p>
-                    Experiment with how the GPU determines
-                    which objects appear in front of others.
-                </p>
-
-                <label>
-                    <input type="checkbox" id="depthTest" checked>
-                    Enable Depth Testing
-                </label>
-
-            </div>
-
-        </section>
-
-
-        <!-- GPU PIPELINE -->
-        <section id="pipeline">
-
-            <h2>The GPU Rendering Pipeline</h2>
-
-            <p>
-                Follow the journey of a 3D object as it becomes
-                the pixels displayed on your screen.
-            </p>
-
-
-            <div class="pipeline-stage" id="vertex-processing">
-
-                <h3>01. Vertex Processing</h3>
-
-                <p>
-                    The GPU processes the coordinates of individual
-                    vertices and transforms them into screen space.
-                </p>
-
-                <button class="stage-button" data-stage="vertex">
-                    Explore Stage
-                </button>
-
-            </div>
-
-
-            <div class="pipeline-stage" id="triangle-processing">
-
-                <h3>02. Triangle Processing</h3>
-
-                <p>
-                    Vertices are assembled into triangles that
-                    form the surfaces of 3D objects.
-                </p>
-
-                <button class="stage-button" data-stage="triangle">
-                    Explore Stage
-                </button>
-
-            </div>
-
-
-            <div class="pipeline-stage" id="rasterization">
-
-                <h3>03. Rasterization</h3>
-
-                <p>
-                    The GPU determines which screen pixels
-                    are covered by each triangle.
-                </p>
-
-                <button class="stage-button" data-stage="rasterization">
-                    Explore Stage
-                </button>
-
-            </div>
-
-
-            <div class="pipeline-stage" id="fragment-processing">
-
-                <h3>04. Fragment Processing</h3>
-
-                <p>
-                    The GPU calculates the colours and other
-                    properties of fragments using shaders.
-                </p>
-
-                <button class="stage-button" data-stage="fragment">
-                    Explore Stage
-                </button>
-
-            </div>
-
-
-            <div class="pipeline-stage" id="framebuffer">
-
-                <h3>05. Framebuffer Operations</h3>
-
-                <p>
-                    The final pixel values are stored in the
-                    framebuffer and displayed on your screen.
-                </p>
-
-                <button class="stage-button" data-stage="framebuffer">
-                    Explore Stage
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- LEARNING SECTION -->
-        <section id="about">
-
-            <h2>Why Does This Matter?</h2>
-
-            <p>
-                GPUs are responsible for rendering the graphics
-                we see in video games, animations, simulations
-                and many other applications.
-            </p>
-
-            <p>
-                Understanding the rendering pipeline helps reveal
-                how complex 3D scenes become the 2D images
-                displayed on our screens.
-            </p>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer>
-
-        <h3>GPU LAB</h3>
-
-        <p>Inside a GPU — From 3D to Pixels</p>
-
-        <p>Created for the Global Virtual Hackathon 2026.</p>
-
-    </footer>
-
+  <header class="topbar">
+    <a class="brand" href="#intro"><span class="brand-dot"></span>Behind the Message</a>
+    <nav>
+      <a href="#simulator">Simulator</a>
+      <a href="#learn">Learn</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SECTION A: Introduction -->
+    <section id="intro" class="hero">
+      <p class="eyebrow">Global Virtual Hackathon</p>
+      <h1>Behind the Message</h1>
+      <p class="subtitle">Your message travels further than you think. Discover how encryption protects it.</p>
+      <p class="lead">
+        Encryption scrambles a message with a secret key so that only the person who holds the right key can unscramble it.
+        Anyone who grabs the message on the way sees only meaningless data. This site runs <strong>real</strong> encryption
+        (ECDH, HKDF and AES-256-GCM) inside your browser, so you can watch every step.
+      </p>
+      <div class="hero-flow" aria-hidden="true">
+        <span class="chip">Message</span><span class="arrow">&rarr;</span>
+        <span class="chip chip-purple">Encrypt with a key</span><span class="arrow">&rarr;</span>
+        <span class="chip">Unreadable ciphertext</span><span class="arrow">&rarr;</span>
+        <span class="chip chip-purple">Decrypt with a key</span><span class="arrow">&rarr;</span>
+        <span class="chip">Message</span>
+      </div>
+      <button class="btn btn-primary" id="scrollBtn" type="button">Try the Simulator</button>
+      <p class="privacy">Private by design: no servers, no API keys. Your text never leaves this page.</p>
+    </section>
+
+    <!-- SECTION B: Simulator -->
+    <section id="simulator" class="section">
+      <h2>Interactive Encryption Simulator</h2>
+      <p class="section-intro">Type a message, press the button, and watch Alice send it securely to Bob across an untrusted network.</p>
+
+      <div class="card controls">
+        <label for="messageInput">Alice's message</label>
+        <div class="input-row">
+          <input id="messageInput" type="text" maxlength="280" value="Meet me at the library at 5pm." autocomplete="off" spellcheck="false">
+          <button class="btn btn-primary" id="encryptBtn" type="button">Encrypt Message</button>
+          <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+        </div>
+        <div id="errorBox" class="error-box" role="alert" hidden></div>
+      </div>
+
+      <div class="progress-wrap" aria-live="polite">
+        <div class="progress-label"><span id="statusLine">Ready. Press "Encrypt Message" to begin.</span><span id="progressCount">0 / 11</span></div>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+
+      <!-- Visual journey -->
+      <div class="stage">
+        <div class="party card" id="aliceCard">
+          <div class="party-head"><span class="avatar">A</span><div><h3>ALICE</h3><p>Sender</p></div></div>
+          <div class="field-label">Original message (plaintext)</div>
+          <div class="screen" id="aliceText">Waiting&hellip;</div>
+          <div class="field-label">Encrypted message (ciphertext, Base64)</div>
+          <div class="screen screen-cipher" id="aliceCipher">&mdash;</div>
+          <div class="badges"><span class="badge" id="aliceKeyBadge">No keys yet</span></div>
+        </div>
+
+        <div class="channel" id="channel">
+          <div class="channel-title">Internet / Untrusted Channel</div>
+          <div class="lane">
+            <div class="wire"></div>
+            <div class="packet-layer" id="packetLayer"></div>
+          </div>
+          <div class="eve card">
+            <div class="field-label">What an eavesdropper can see</div>
+            <ul id="eveLog"><li class="muted">Nothing sent yet.</li></ul>
+            <p class="tiny">Never on the wire: private keys, shared secret, AES key, or your message.</p>
+          </div>
+        </div>
+
+        <div class="party card" id="bobCard">
+          <div class="party-head"><span class="avatar avatar-purple">B</span><div><h3>BOB</h3><p>Receiver</p></div></div>
+          <div class="field-label">Received data (ciphertext)</div>
+          <div class="screen screen-cipher" id="bobCipher">&mdash;</div>
+          <div class="field-label">Decrypted message</div>
+          <div class="screen" id="bobText">Waiting&hellip;</div>
+          <div class="badges"><span class="badge" id="bobKeyBadge">No keys yet</span></div>
+        </div>
+      </div>
+
+      <!-- Step cards -->
+      <ol class="steps" id="stepList"></ol>
+
+      <div class="card summary" id="summary" hidden>
+        <h3>What just happened</h3>
+        <p id="summaryText"></p>
+        <button class="btn btn-primary" id="exploreBtn" type="button">Explore How It Works &rarr;</button>
+      </div>
+
+      <!-- Step-by-step learning mode (opens after a successful run) -->
+      <section class="card learn" id="learnMode" aria-labelledby="learnHeading" hidden>
+        <div class="learn-head">
+          <h3 id="learnHeading">How It Works: Step by Step</h3>
+          <div>
+            <span class="learn-counter" id="learnCounter" aria-live="polite">Step 1 of 7</span>
+            <button class="learn-close" id="learnClose" type="button">Close</button>
+          </div>
+        </div>
+        <div class="learn-progress" id="learnProgress" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" aria-label="Learning progress"></div>
+        <div class="learn-body" id="learnBody"></div>
+        <div class="learn-nav">
+          <button class="btn btn-ghost" id="learnPrev" type="button">&larr; Previous Step</button>
+          <button class="btn btn-primary" id="learnNext" type="button">Next Step &rarr;</button>
+        </div>
+      </section>
+
+      <!-- Cryptographic details -->
+      <div class="card details">
+        <button class="details-toggle" id="detailsToggle" type="button" aria-expanded="false" aria-controls="detailsPanel">
+          <span>View Cryptographic Details</span><span class="caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <div id="detailsPanel" hidden>
+          <div class="detail">
+            <h4>Alice's public key</h4>
+            <code id="dPubA" class="mono-box">Not generated yet</code>
+            <p>Alice's shareable "lock" (a point on the P-256 curve, Base64). Anyone may see it. It is used with Bob's private key to build the shared secret.</p>
+          </div>
+          <div class="detail">
+            <h4>Bob's public key</h4>
+            <code id="dPubB" class="mono-box">Not generated yet</code>
+            <p>Bob's shareable value. Combined with Alice's private key, it produces the exact same shared secret.</p>
+          </div>
+          <div class="detail">
+            <h4>Private keys</h4>
+            <code class="mono-box">Alice: NOT EXPORTED (hidden)<br>Bob: NOT EXPORTED (hidden)</code>
+            <p>Created as non-extractable keys: the browser keeps them inside its crypto engine and our code cannot read them. They are never transmitted.</p>
+          </div>
+          <div class="detail">
+            <h4>Derived AES-256 session key</h4>
+            <div class="warn">Educational demo only. Real applications must NEVER display, log or transmit a session key. Anyone who has it can read the message.</div>
+            <code id="dAes" class="mono-box">Not derived yet</code>
+            <p>The 256-bit secret that actually locks and unlocks the message. Both sides computed it separately from the shared secret using HKDF-SHA-256.</p>
+          </div>
+          <div class="detail">
+            <h4>IV (initialisation vector)</h4>
+            <code id="dIv" class="mono-box">Not generated yet</code>
+            <p>A random 12-byte number used once, making sure that the same message never encrypts to the same output twice. It is not secret and is sent with the ciphertext.</p>
+          </div>
+          <div class="detail">
+            <h4>Ciphertext (Base64)</h4>
+            <code id="dCt" class="mono-box">Not encrypted yet</code>
+            <p>The scrambled message plus a 16-byte authentication tag. The tag lets Bob detect any tampering.</p>
+          </div>
+          <div class="detail">
+            <h4>Did Alice and Bob derive matching keys?</h4>
+            <code id="dMatch" class="mono-box">Not checked yet</code>
+            <p>Both sides compared their results locally for this demo. If either value differed, decryption would fail.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Educational section -->
+    <section id="learn" class="section">
+      <h2>Key Concepts</h2>
+      <div class="grid">
+        <article class="card concept"><h3>Plaintext</h3><p>The original, readable message, such as "Meet me at 5pm".</p></article>
+        <article class="card concept"><h3>Public key</h3><p>A value you can share openly. Others use it to set up a secret with you, and it does not reveal your private key.</p></article>
+        <article class="card concept"><h3>Private key</h3><p>A value you never share. Only its owner can use it to complete the key agreement.</p></article>
+        <article class="card concept"><h3>ECDH</h3><p>Elliptic-Curve Diffie-Hellman. Two people swap public keys and each combines the other's public key with their own private key, arriving at the same secret without ever sending it.</p></article>
+        <article class="card concept"><h3>Shared secret</h3><p>The identical value Alice and Bob each compute. It is raw material, so HKDF turns it into a proper encryption key.</p></article>
+        <article class="card concept"><h3>AES-256-GCM</h3><p>A fast, widely used cipher with a 256-bit key. The "GCM" mode also adds a tag that detects tampering.</p></article>
+        <article class="card concept"><h3>Initialisation vector (IV)</h3><p>A random, single-use number that makes every encryption unique. It is public, but must never be reused with the same key.</p></article>
+        <article class="card concept"><h3>Ciphertext</h3><p>The scrambled output that looks like random data. It is safe to send across an untrusted network.</p></article>
+        <article class="card concept"><h3>Decryption</h3><p>Reversing encryption with the correct key and IV to recover the plaintext. A wrong key or altered data makes it fail.</p></article>
+      </div>
+
+      <div class="card callout">
+        <h3>Why can't an eavesdropper read the message?</h3>
+        <p>An interceptor sees only the two public keys, the IV and the ciphertext. Without a private key they cannot compute the shared secret, so they cannot derive the AES key. Guessing a 256-bit key is computationally impossible, and any change to the ciphertext makes GCM decryption fail.</p>
+      </div>
+
+      <div class="card callout callout-warn">
+        <h3>An honest limitation</h3>
+        <p>This demo assumes Alice and Bob have <strong>authenticated each other's public keys</strong>, meaning each knows the key truly belongs to the other. ECDH alone does not prevent a man-in-the-middle attack: an attacker who swaps in their own public keys could read everything. Real systems prove identity with certificates, signatures or key fingerprints.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built with HTML, CSS, vanilla JavaScript and the browser's Web Crypto API. No libraries, servers or API keys.</p>
+  </footer>
 </body>
 </html>

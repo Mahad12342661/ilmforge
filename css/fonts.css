@@ -1,0 +1,13 @@
+/* ===== Fonts & typography =====
+   System font stacks only: no external font downloads, so the site works offline and stays private.
+   The stacks themselves (--sans, --mono) are defined in style.css. */
+body { font-family: var(--sans); font-size: 16px; line-height: 1.6; }
+h1, h2, h3, h4 { line-height: 1.2; }
+h1 { font-weight: 800; letter-spacing: -0.5px; }
+h2 { font-weight: 700; }
+
+/* Monospace is used wherever the demo shows raw cryptographic data */
+code, .mono-box, .screen-cipher, .step .result, .packet { font-family: var(--mono); }
+.packet { font-family: var(--sans); }
+
+.eyebrow, .field-label, .channel-title { text-transform: uppercase; }

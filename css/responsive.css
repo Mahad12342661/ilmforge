@@ -1,0 +1,23 @@
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .stage { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  /* On small screens the journey flows top to bottom */
+  .lane { height: 110px; }
+  .wire { left: 50%; right: auto; top: 0; bottom: 0; width: 2px; height: auto; transform: translateX(-50%);
+          background: linear-gradient(180deg, var(--blue), var(--purple)); }
+  .wire::before { content: none; }
+  .wire::after { right: auto; top: auto; bottom: -6px; left: -6px; content: "\25BC"; }
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+  .topbar nav { gap: 14px; }
+  .btn { flex: 1 1 auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
