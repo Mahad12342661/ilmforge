@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Everything runs locally. This policy forbids any network request, so a message can never leave the page. -->
+  
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="description" content="Behind the Message: an interactive demo of real ECDH + HKDF + AES-256-GCM encryption using the browser's Web Crypto API.">
   <title>Behind the Message: How Encryption Works</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a1030'/%3E%3Cpath d='M10 14v-3a6 6 0 0 1 12 0v3h1v10H9V14zm3 0h6v-3a3 3 0 0 0-6 0z' fill='%2339a0ff'/%3E%3C/svg%3E">
-  <!-- Styles (frontend look): load order matters -->
+  
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/learn.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <!-- Scripts: crypto engine (processing) -> UI (display) -> app (connects the two) -->
+  
   <script src="js/crypto-engine.js" defer></script>
   <script src="js/ui.js" defer></script>
   <script src="js/learn.js" defer></script>
@@ -32,7 +32,7 @@
   </header>
 
   <main>
-    <!-- SECTION A: Introduction -->
+    
     <section id="intro" class="hero">
       <p class="eyebrow">Global Virtual Hackathon</p>
       <h1>Behind the Message</h1>
@@ -53,7 +53,7 @@
       <p class="privacy">Private by design: no servers, no API keys. Your text never leaves this page.</p>
     </section>
 
-    <!-- SECTION B: Simulator -->
+    <!-- Simulator -->
     <section id="simulator" class="section">
       <h2>Interactive Encryption Simulator</h2>
       <p class="section-intro">Type a message, press the button, and watch Alice send it securely to Bob across an untrusted network.</p>
@@ -116,7 +116,7 @@
         <button class="btn btn-primary" id="exploreBtn" type="button">Explore How It Works &rarr;</button>
       </div>
 
-      <!-- Step-by-step learning mode (opens after a successful run) -->
+      <!-- Step-by-step learning mode -->
       <section class="card learn" id="learnMode" aria-labelledby="learnHeading" hidden>
         <div class="learn-head">
           <h3 id="learnHeading">How It Works: Step by Step</h3>
